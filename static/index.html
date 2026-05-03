@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Queue UI</title>
+</head>
+<body>
+
+<h2>Create Job</h2>
+<button onclick="createJob()">Create Job</button>
+
+<p id="jobId"></p>
+
+<hr>
+
+<h2>Check Job Status</h2>
+<input type="text" id="jobInput" placeholder="Enter Job ID">
+<button onclick="getJob()">Check Status</button>
+
+<p id="result"></p>
+
+<script>
+async function createJob() {
+    const res = await fetch("http://localhost:8080/jobs", {
+        method: "POST"
+    });
+
+    const data = await res.json();
+    document.getElementById("jobId").innerText = "Job ID: " + data.id;
+}
+
+async function getJob() {
+    const id = document.getElementById("jobInput").value;
+
+    const res = await fetch(`http://localhost:8080/job?id=${id}`);
+    const data = await res.json();
+
+    document.getElementById("result").innerText =
+        "Status: " + data.status + " | Result: " + (data.result || "");
+}
+</script>
+
+</body>
+</html>
