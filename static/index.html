@@ -20,7 +20,7 @@
 
 <script>
 async function createJob() {
-    const res = await fetch("http://localhost:8080/jobs", {
+    const res = await fetch("/jobs", {
         method: "POST"
     });
 
@@ -31,7 +31,7 @@ async function createJob() {
 async function getJob() {
     const id = document.getElementById("jobInput").value;
 
-    const res = await fetch(`http://localhost:8080/job?id=${id}`);
+    const res = await fetch(`/job?id=${id}`);
     const data = await res.json();
 
     document.getElementById("result").innerText =
